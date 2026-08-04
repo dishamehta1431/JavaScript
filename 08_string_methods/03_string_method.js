@@ -228,7 +228,7 @@ console.log("trimStart=> ",trimStr3.trimStart());
 // trimEnd
 
 console.log("trimEnd=> ",trimStr3.trimEnd());
-
+  
 
 
 
