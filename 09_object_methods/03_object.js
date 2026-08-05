@@ -57,3 +57,10 @@ console.log("person hasOwn property name=> ", person.hasOwnProperty("name"));
 console.log("person hasOwn property city=> ", person.hasOwnProperty("city"));
 
 
+// Itraiting through object
+
+// for in loop
+
+for (let key in person) {
+  console.log("key=> ", key, "value=> ", person[key]);
+}
