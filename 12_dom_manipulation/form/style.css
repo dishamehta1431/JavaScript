@@ -1,0 +1,35 @@
+body {
+    font-family: poppins;
+    background:linear-gradient(90deg,lightblue,lightpink);
+}
+
+form {
+    width: 300px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color:ghostwhite;
+    border-radius: 10px;
+}
+label {
+    display: block;
+    margin-top: 10px;
+    color: blue;
+}
+
+input {
+    width: 95%;
+    padding: 8px;
+    border-radius: 20px;
+    margin-top: 5px;
+}
+
+button {
+    margin-top: 15px;
+    padding: 10px 20px;
+    background:linear-gradient(90deg,pink,blue);
+    border-radius: 30px;
+    color: black;
+    margin-left: 109px;
+    border: none;
+    font-size: 15px;
+}
