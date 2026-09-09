@@ -44,7 +44,7 @@ const paymentDeduct = (amt, cb) => {
       throw new Error(`${remainBalance} is available balance`);
     }
 
-    setTimeout(() => {
+      setTimeout(() => {
       console.log("stage-3", "processing payments...");
 
       cb(null, amt);
