@@ -1,0 +1,40 @@
+body {
+    background-color: #f5f5f5;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+}
+
+form {
+    display: flex;
+    background-color: #ede7f6;  /* Light Purple */
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 30vh;
+    width: 25vw;
+    color: #333;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+#movieName {
+    width: 40%;
+    height: 40px;
+    border-radius: 5px;
+    border: 1px solid black;
+    padding-left: 10px;
+    font-size: 15px;
+    text-align: center;
+    color: #333;
+}
+
+button{
+    background:linear-gradient(90deg,purple,blue);
+    height: 40px;
+    color: aliceblue;
+    font-size: 20px;
+    border: none;
+    border-radius: 10px;
+    width: 100px;
+}
