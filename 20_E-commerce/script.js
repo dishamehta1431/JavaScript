@@ -21,8 +21,9 @@ const products = [
     id: 4,
     name: "Crop Top",
     price: 599,
-    image: "https://images.unsplash.com/photo-1551488831-00ddcb6c6bd3?w=600&auto=format&fit=crop"
-},
+    image:
+      "https://images.unsplash.com/photo-1551488831-00ddcb6c6bd3?w=600&auto=format&fit=crop",
+  },
   {
     id: 5,
     name: "Baggy Jeans",
@@ -73,18 +74,35 @@ const products = [
   },
 ];
 
+let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
 function displayProducts() {
   const productList = document.getElementById("product-list");
+
   products.forEach((product) => {
     productList.innerHTML += `
       <div class="col-md-4 p-3">
         <div class="card product-card">
-            <img src="${product.image}" class="product-img  card-img-top" alt="${product.name}">
-            <div class="card-body">
-                <h5 class="card-title">${product.name}</h5>
-                <p class="card-text">Price: ₹${product.price}</p>
-                <button class="btn btn-card btn-primary" onclick="addToCart(${product.id})">Add to Cart</button>
-            </div>
+          <img 
+            src="${product.image}" 
+            class="product-img card-img-top" 
+            alt="${product.name}"
+          >
+
+          <div class="card-body">
+            <h5 class="card-title">${product.name}</h5>
+
+            <p class="card-text">
+              Price: ₹${product.price}
+            </p>
+
+            <button 
+              class="btn btn-card btn-primary" 
+              onclick="addToCart(${product.id})"
+            >
+              Add to Cart
+            </button>
+          </div>
         </div>
       </div>
     `;
@@ -92,3 +110,35 @@ function displayProducts() {
 }
 
 displayProducts();
+
+function addToCart(productId) {
+  try {
+    let productItem = cart.find(
+      (product) => product.id === productId
+    );
+
+    if (productItem) {
+      productItem.qty++;
+      console.log("Product quantity updated:", productItem);
+    } else {
+      productItem = products.find(
+        (product) => product.id === productId
+      );
+
+      cart.push({
+        ...productItem,
+        qty: 1
+      });
+    }
+
+    updateLocalStorage();
+
+    alert("Product added to cart successfully!");
+  } catch (error) {
+    console.error("Error adding product to cart:", error);
+  }
+}
+
+function updateLocalStorage() {
+  localStorage.setItem("cart", JSON.stringify(cart));
+}
