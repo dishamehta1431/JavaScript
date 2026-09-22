@@ -113,21 +113,17 @@ displayProducts();
 
 function addToCart(productId) {
   try {
-    let productItem = cart.find(
-      (product) => product.id === productId
-    );
+    let productItem = cart.find((product) => product.id === productId);
 
     if (productItem) {
       productItem.qty++;
       console.log("Product quantity updated:", productItem);
     } else {
-      productItem = products.find(
-        (product) => product.id === productId
-      );
+      productItem = products.find((product) => product.id === productId);
 
       cart.push({
         ...productItem,
-        qty: 1
+        qty: 1,
       });
     }
 
@@ -141,4 +137,52 @@ function addToCart(productId) {
 
 function updateLocalStorage() {
   localStorage.setItem("cart", JSON.stringify(cart));
+}
+
+function showCartItem() {
+  const cartModal = document.getElementById("cartModal");
+
+  const modal = new bootstrap.Modal(cartModal);
+
+  modal.show();
+  showCartData();
+}
+
+function showCartData() {
+  const tableBody = document.getElementById("table-body");
+
+  tableBody.innerHTML = "";
+
+  cart.forEach((p, index) => {
+    tableBody.innerHTML += `
+    
+    <tr>
+      <td>${index + 1}</td>
+      <td><img src=${p.image} class="cartProductImage" alt=${p.name}</img></td>
+      <td>${p.name}</td>
+      <td>${p.price}</td>
+      <td>
+
+      <div class="d-flex justify-content-center align-items-center gap-2 ">
+      <button class="btn btn-cart-table1 ">+</button>
+      
+      <h5> ${p.qty}</h5>
+      <button class="btn btn-cart-table2 ">-</button>
+
+      </div>
+      </td>
+      <td>
+      <h5>₹${p.qty * p.price}</h5>
+      </td>
+      <td> 
+      <button class="btn btn-remove">Remove</button>
+      </td>
+      </tr>
+
+    
+    
+    </tr>
+    
+    `;
+  });
 }
