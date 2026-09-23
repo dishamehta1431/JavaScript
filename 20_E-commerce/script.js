@@ -137,6 +137,7 @@ function addToCart(productId) {
 
 function updateLocalStorage() {
   localStorage.setItem("cart", JSON.stringify(cart));
+  grandTotal();
 }
 
 function showCartItem() {
@@ -146,6 +147,7 @@ function showCartItem() {
 
   modal.show();
   showCartData();
+  grandTotal();
 }
 
 function showCartData() {
@@ -158,16 +160,16 @@ function showCartData() {
     
     <tr>
       <td>${index + 1}</td>
-      <td><img src=${p.image} class="cartProductImage" alt=${p.name}</img></td>
+      <td><img src=${p.image} class="cartProductImage" alt=${p.name}></td>
       <td>${p.name}</td>
       <td>${p.price}</td>
       <td>
 
       <div class="d-flex justify-content-center align-items-center gap-2 ">
-      <button class="btn btn-cart-table1 ">+</button>
+      <button class="btn btn-cart-table1" onClick="increaseQty(${p.id})" >+</button>
       
       <h5> ${p.qty}</h5>
-      <button class="btn btn-cart-table2 ">-</button>
+      <button class="btn btn-cart-table2" onClick="decreaseQty(${p.id})">-</button>
 
       </div>
       </td>
@@ -175,14 +177,84 @@ function showCartData() {
       <h5>₹${p.qty * p.price}</h5>
       </td>
       <td> 
-      <button class="btn btn-remove">Remove</button>
+      <button class="btn btn-remove" onClick="removeProduct(${p.id})">Remove</button>
       </td>
       </tr>
 
     
     
-    </tr>
+
     
     `;
   });
 }
+
+function increaseQty(id) {
+  try {
+    const product = cart.find((p) => p.id === id);
+
+    if (product) {
+      product.qty++;
+    }
+
+    updateLocalStorage();
+    showCartData();
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+function decreaseQty(id) {
+  try {
+    const index = cart.findIndex((p) => p.id === id);
+    if (index === -1) {
+      throw new Error("Product Not Found!!");
+    }
+
+    const product = cart.find((p) => p.id === id);
+
+    if (product) {
+      product.qty--;
+    }
+
+    if (product.qty === 0) {
+      cart.splice(index, 1);
+    }
+    updateLocalStorage();
+
+    showCartData();
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+// function removeProduct(id) {
+//   try {
+//     cart = cart.filter((p) => p, id !== id);
+//     updateLocalStorage();
+//   } catch (error) {
+//     console.log(error);
+//   }
+// }
+
+function removeProduct(id) {
+  const index = cart.findIndex((p) => p.id === id);
+
+  cart.splice(index, 1);
+
+  updateLocalStorage();
+  showCartData();
+}
+
+function grandTotal() {
+  const total = document.getElementById("GrandTotal");
+  total.innerHTML = "";
+
+  const totalAmounts = cart.reduce((acc, curr) => {
+    return (acc += curr.price * curr.qty);
+  }, 0);
+
+  total.innerHTML = `<h5>₹${totalAmounts}</h5>`;
+}
+
+
